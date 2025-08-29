@@ -1,13 +1,32 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { MobileLayout } from "@/components/MobileLayout";
+import { HomeScreen } from "@/components/screens/HomeScreen";
+import { ReportScreen } from "@/components/screens/ReportScreen";
+import { LeaderboardScreen } from "@/components/screens/LeaderboardScreen";
+import { ProfileScreen } from "@/components/screens/ProfileScreen";
 
 const Index = () => {
+  const [activeTab, setActiveTab] = useState("home");
+
+  const renderActiveScreen = () => {
+    switch (activeTab) {
+      case "home":
+        return <HomeScreen />;
+      case "report":
+        return <ReportScreen />;
+      case "leaderboard":
+        return <LeaderboardScreen />;
+      case "profile":
+        return <ProfileScreen />;
+      default:
+        return <HomeScreen />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <MobileLayout activeTab={activeTab} onTabChange={setActiveTab}>
+      {renderActiveScreen()}
+    </MobileLayout>
   );
 };
 
